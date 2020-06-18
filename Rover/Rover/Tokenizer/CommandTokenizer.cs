@@ -27,7 +27,7 @@ namespace MarsRoverExercise.Tokenizer
             _tokenDefinitions.Add(new TokenDefinition(TokenType.Landing, "^Landing:"));
             _tokenDefinitions.Add(new TokenDefinition(TokenType.Instructions, "^Instructions:"));
             _tokenDefinitions.Add(new TokenDefinition(TokenType.RoverName, "^Rover\\d+"));
-            _tokenDefinitions.Add(new TokenDefinition(TokenType.StringValue, "^'[^']*'"));
+            _tokenDefinitions.Add(new TokenDefinition(TokenType.StringValue, "^[a-zA-Z]*$"));
             _tokenDefinitions.Add(new TokenDefinition(TokenType.Number, "^\\d+"));
         }
 

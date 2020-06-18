@@ -9,7 +9,7 @@ namespace RoverUnitTests
     {
         private const int girdWidth = 5;
         private const int girdHeight = 5;
-        MarsRover _rover = null;
+        private MarsRover _rover = null;
 
         [TestInitialize]
         public void TestInitialize()

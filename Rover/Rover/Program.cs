@@ -11,6 +11,7 @@ namespace MarsRoverExercise
         private const int defaultPlateauHeight = 5;
         private const int commandLinePlateauNumOfParams = 4;
         private const int commandLineLandingNumOfParams = 6;
+        private const int commandLineInstructionsNumOfParams = 4;
 
         static void Main(string[] args)
         {
@@ -47,6 +48,8 @@ namespace MarsRoverExercise
                                 rover = new MarsRover(Convert.ToInt32(tokenList.ElementAt(1).Value),
                                     Convert.ToInt32(tokenList.ElementAt(2).Value));
                             }
+                            //
+                            // Assertion: we can use a default plateau size
                             else if (tokenList.ElementAt(1).TokenType == TokenType.Landing)
                             {
                                 if (tokenList.Count() != commandLineLandingNumOfParams)
@@ -59,9 +62,13 @@ namespace MarsRoverExercise
                                     Convert.ToInt32(tokenList.ElementAt(3).Value),
                                     (RoverDirection)tokenList.ElementAt(4).Value[0]);
                             }
+                            //
+                            // Assertion: we can have multiple insturctions commands, as long as
+                            // as the rover name is matching the current rover instance
                             else if (tokenList.ElementAt(1).TokenType == TokenType.Instructions)
                             {
-                                if (!IsInstructionStringValid(tokenList.ElementAt(2).Value) ||
+                                if (tokenList.Count() != commandLineInstructionsNumOfParams ||
+                                    !IsInstructionStringValid(tokenList.ElementAt(2).Value) ||
                                     rover.Name != tokenList.ElementAt(0).Value)
                                 {
                                     throw new Exception("Invalid input for Instructions at line " + lineNumber);
