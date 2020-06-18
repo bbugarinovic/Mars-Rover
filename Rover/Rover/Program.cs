@@ -55,7 +55,7 @@ namespace MarsRoverExercise
                                 }
 
                                 rover.Name = tokenList.ElementAt(0).Value;
-                                rover.setPosition(Convert.ToInt32(tokenList.ElementAt(2).Value),
+                                rover.SetPosition(Convert.ToInt32(tokenList.ElementAt(2).Value),
                                     Convert.ToInt32(tokenList.ElementAt(3).Value),
                                     (RoverDirection)tokenList.ElementAt(4).Value[0]);
                             }
@@ -67,8 +67,8 @@ namespace MarsRoverExercise
                                     throw new Exception("Invalid input for Instructions at line " + lineNumber);
                                 }
 
-                                rover.process(tokenList.ElementAt(2).Value);
-                                Console.WriteLine(rover.currentPosition());
+                                rover.ProcessCommands(tokenList.ElementAt(2).Value);
+                                Console.WriteLine(rover.Name + ":" + rover.CurrentPosition());
                             }
                         }
                     }

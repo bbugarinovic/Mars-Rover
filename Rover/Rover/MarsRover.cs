@@ -33,40 +33,40 @@ namespace MarsRoverExercise
         public string Name   // property
         { get; set; }
 
-        public void setPosition(int x, int y, RoverDirection facing)
+        public void SetPosition(int x, int y, RoverDirection facing)
         {
             this.x = x;
             this.y = y;
             this.facing = facing;
         }
 
-        public string currentPosition()
+        public string CurrentPosition()
         {
             return x +  " " +  y +  " " + (char)facing;
         }
 
-        public void process(string commands)
+        public void ProcessCommands(string commands)
         {
             var commandChars = commands.ToCharArray();
 
             for (int idx = 0; idx < commandChars.Length; idx++)
             {
-                process(commandChars[idx]);
+                ProcessCommand(commandChars[idx]);
             }
         }
 
-        private void process(char command)
+        private void ProcessCommand(char command)
         {
             switch ((RoverCommand)command)
             {
                 case RoverCommand.Move:
-                    move();
+                    Move();
                     break;
                 case RoverCommand.Left:
-                    turnLeft();
+                    TurnLeft();
                     break;
                 case RoverCommand.Right:
-                    turnRight();
+                    TurnRight();
                     break;
                 default:
                     Console.WriteLine($"Invalid Command Character {command}");
@@ -79,7 +79,7 @@ namespace MarsRoverExercise
             }
         }
 
-        private void move()
+        private void Move()
         {
             switch (facing)
             {
@@ -100,7 +100,7 @@ namespace MarsRoverExercise
             }
         }
 
-        private void turnLeft()
+        private void TurnLeft()
         {
             switch (facing)
             {
@@ -121,7 +121,7 @@ namespace MarsRoverExercise
             }
         }
 
-        private void turnRight()
+        private void TurnRight()
         {
             switch (facing)
             {

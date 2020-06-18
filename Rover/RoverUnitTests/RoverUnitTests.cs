@@ -20,36 +20,36 @@ namespace RoverUnitTests
         [TestMethod]
         public void WhenStarting12N_AndMoveCommandLMLMLMLMM_AssertSuccesfulMove()
         {
-            _rover.setPosition(1, 2, RoverDirection.North);
+            _rover.SetPosition(1, 2, RoverDirection.North);
 
             var moves = "LMLMLMLMM";
-            _rover.process(moves);
+            _rover.ProcessCommands(moves);
 
             var expectedPosition = "1 3 N";
-            Assert.AreEqual(expectedPosition, _rover.currentPosition());
+            Assert.AreEqual(expectedPosition, _rover.CurrentPosition());
         }
 
         [TestMethod]
         public void WhenStarting33E_AndMoveCommandMRRMMRMRRM_AssertSuccesfulMove()
         {
-            _rover.setPosition(3, 3, RoverDirection.East);
+            _rover.SetPosition(3, 3, RoverDirection.East);
 
             var moves = "MMRMMRMRRM";
-            _rover.process(moves);
+            _rover.ProcessCommands(moves);
 
             var expectedPosition = "5 1 E";
-            Assert.AreEqual(expectedPosition, _rover.currentPosition());
+            Assert.AreEqual(expectedPosition, _rover.CurrentPosition());
         }
 
         [TestMethod]
         public void WhenStarting33E_AndMoveCommandMMM_AssertException()
         {
-            _rover.setPosition(3, 3, RoverDirection.East);
+            _rover.SetPosition(3, 3, RoverDirection.East);
 
             try
             {
                 var moves = "MMM";
-                _rover.process(moves);
+                _rover.ProcessCommands(moves);
 
                 Assert.Fail("An exception should have been thrown");
             }
@@ -62,12 +62,12 @@ namespace RoverUnitTests
         [TestMethod]
         public void WhenStarting33S_AndMoveCommandMMM_AssertException()
         {
-            _rover.setPosition(3, 3, RoverDirection.South);
+            _rover.SetPosition(3, 3, RoverDirection.South);
 
             try
             {
                 var moves = "MMMMM";
-                _rover.process(moves);
+                _rover.ProcessCommands(moves);
 
                 Assert.Fail("An exception should have been thrown");
             }
