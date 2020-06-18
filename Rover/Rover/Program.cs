@@ -1,28 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using MarsRoverExercise.Tokenizer;
 
-namespace MarsRover
+namespace MarsRoverExercise
 {
-    enum CommandType
-    {
-        Plateau,
-        Landing,
-        Instructions
-    }
-
     class Program
     {
-        private const char commandTypeSeparator = ':';
         private const int defaultPlateauWidth = 5;
         private const int defaultPlateauHeight = 5;
-        private const int commandLineElements = 2;
-        private const int commandLinePlateauNumOfParams = 2;
-        private const int commandLineLandingNumOfParams = 3;
+        private const int commandLinePlateauNumOfParams = 4;
+        private const int commandLineLandingNumOfParams = 6;
 
         static void Main(string[] args)
         {
-            Rover rover = new Rover(defaultPlateauWidth, defaultPlateauHeight);
+            MarsRover rover = new MarsRover(defaultPlateauWidth, defaultPlateauHeight);
 
             if (args != null && args.Length > 0)
             {
@@ -35,47 +27,47 @@ namespace MarsRover
 
                         while ((line = file.ReadLine()) != null)
                         {
-                            var parameters = line.Split(commandTypeSeparator);
                             lineNumber++;
 
-                            if (parameters.Length != commandLineElements)
+                            CommandTokenizer tokenizer = new CommandTokenizer();
+                            var tokenList = tokenizer.Tokenize(line);
+
+                            if (tokenList.Count() < 2)
                             {
                                 throw new Exception("Invalid input file at line " + lineNumber);
                             }
 
-                            if (parameters[0].Contains(CommandType.Plateau.ToString()))
+                            if (tokenList.ElementAt(0).TokenType == TokenType.Plateau)
                             {
-                                var plateauParams = parameters[1].Split(' ');
-
-                                if (plateauParams.Length != commandLinePlateauNumOfParams)
+                                if (tokenList.Count() != commandLinePlateauNumOfParams)
                                 {
-                                    throw new Exception("Invalid input file at line " + lineNumber);
+                                    throw new Exception("Invalid input for Plateau at line " + lineNumber);
                                 }
 
-                                rover = new Rover(Convert.ToInt32(plateauParams[0]),
-                                    Convert.ToInt32(plateauParams[1]));
+                                rover = new MarsRover(Convert.ToInt32(tokenList.ElementAt(1).Value),
+                                    Convert.ToInt32(tokenList.ElementAt(2).Value));
                             }
-                            else if (parameters[0].Contains(CommandType.Landing.ToString()))
+                            else if (tokenList.ElementAt(1).TokenType == TokenType.Landing)
                             {
-                                var landingParams = parameters[1].Split(' ');
-
-                                if (landingParams.Length != commandLineLandingNumOfParams)
+                                if (tokenList.Count() != commandLineLandingNumOfParams)
                                 {
-                                    throw new Exception("Invalid input file at line " + lineNumber);
+                                    throw new Exception("Invalid input for Landing at line " + lineNumber);
                                 }
 
-                                rover.setPosition(Convert.ToInt32(landingParams[0]),
-                                    Convert.ToInt32(landingParams[1]),
-                                    (RoverDirection)landingParams[2][0]);
+                                rover.Name = tokenList.ElementAt(0).Value;
+                                rover.setPosition(Convert.ToInt32(tokenList.ElementAt(2).Value),
+                                    Convert.ToInt32(tokenList.ElementAt(3).Value),
+                                    (RoverDirection)tokenList.ElementAt(4).Value[0]);
                             }
-                            else if (parameters[0].Contains(CommandType.Instructions.ToString()))
+                            else if (tokenList.ElementAt(1).TokenType == TokenType.Instructions)
                             {
-                                if (!IsInstructionStringValid(parameters[1]))
+                                if (!IsInstructionStringValid(tokenList.ElementAt(2).Value) ||
+                                    rover.Name != tokenList.ElementAt(0).Value)
                                 {
-                                    throw new Exception("Invalid input file at line " + lineNumber);
+                                    throw new Exception("Invalid input for Instructions at line " + lineNumber);
                                 }
 
-                                rover.process(parameters[1]);
+                                rover.process(tokenList.ElementAt(2).Value);
                                 Console.WriteLine(rover.currentPosition());
                             }
                         }

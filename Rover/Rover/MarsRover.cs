@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MarsRover
+namespace MarsRoverExercise
 {
     public enum RoverDirection
     {
@@ -16,7 +16,7 @@ namespace MarsRover
         Move = 'M'
     }
 
-    public class Rover
+    public class MarsRover
     {
         private int x = 0;
         private int y = 0;
@@ -24,11 +24,14 @@ namespace MarsRover
         private readonly int gridWidth;
         private readonly int gridHeight;
 
-        public Rover(int width, int height)
+        public MarsRover(int width, int height)
         {
             gridWidth = width;
             gridHeight = height;
         }
+
+        public string Name   // property
+        { get; set; }
 
         public void setPosition(int x, int y, RoverDirection facing)
         {

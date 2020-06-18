@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Rover": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Bojan-Mars-Rover\\input.txt"
     }
   }
 }
