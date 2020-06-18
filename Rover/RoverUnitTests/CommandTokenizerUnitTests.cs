@@ -1,6 +1,10 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MarsRoverExercise.Tokenizer;
+using Moq;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
+using MarsRoverExercise;
 
 namespace RoverUnitTests
 {

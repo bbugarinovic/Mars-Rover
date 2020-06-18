@@ -22,16 +22,16 @@ namespace MarsRoverExercise
         private int x = 0;
         private int y = 0;
         private RoverDirection facing = RoverDirection.North;
-        private readonly int gridWidth;
-        private readonly int gridHeight;
+        private readonly int plateauWidth;
+        private readonly int plateauHeight;
         
         public string Name
         { get; set; }
 
         public MarsRover(int width, int height)
         {
-            gridWidth = width;
-            gridHeight = height;
+            plateauWidth = width;
+            plateauHeight = height;
             Name = "Rover";
         }
 
@@ -46,6 +46,11 @@ namespace MarsRoverExercise
         public string CurrentPosition()
         {
             return x +  " " +  y +  " " + (char)facing;
+        }
+
+        public string CurrentPlateauDimenstions()
+        {
+            return "Width: " + plateauWidth + ", Height: " + plateauHeight;
         }
 
         public void ProcessCommands(string commands)
@@ -81,9 +86,9 @@ namespace MarsRoverExercise
 
         private void CheckIfOutOfBounds()
         { 
-            if (this.x < 0 || this.x > gridWidth || this.y < 0 || this.y > gridHeight)
+            if (this.x < 0 || this.x > plateauWidth || this.y < 0 || this.y > plateauHeight)
             {
-                throw new Exception($"Position can not be beyond bounderies (0 , 0) and ({gridWidth} , {gridHeight})");
+                throw new Exception($"Position can not be beyond bounderies (0 , 0) and ({plateauWidth} , {plateauHeight})");
             }
         }
 

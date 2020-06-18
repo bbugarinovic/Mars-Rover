@@ -12,7 +12,7 @@ namespace MarsRoverExercise
     // - if rower position is set or moved out of bound, there is an exception thrown
     // - we can have consecutive instruction commands
 
-    class Program
+    public class Program
     {
         private const int DefaultPlateauWidth = 5;
         private const int DefaultPlateauHeight = 5;
@@ -49,7 +49,7 @@ namespace MarsRoverExercise
             }
         }
 
-        private static void ProcessCommand(ref MarsRover rover, ITokenizer tokenizer, string line, int lineNumber)
+        public static void ProcessCommand(ref MarsRover rover, ITokenizer tokenizer, string line, int lineNumber)
         {
             var tokenList = tokenizer.Tokenize(line);
 
