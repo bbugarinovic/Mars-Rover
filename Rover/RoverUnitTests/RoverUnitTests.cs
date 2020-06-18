@@ -7,14 +7,15 @@ namespace RoverUnitTests
     [TestClass]
     public class RoverUnitTests
     {
-        private const int girdWidth = 5;
-        private const int girdHeight = 5;
+        private const int DefaultGirdWidth = 5;
+        private const int DefaultGirdHeight = 5;
+
         private MarsRover _rover = null;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _rover = new MarsRover(girdWidth, girdHeight);
+            _rover = new MarsRover(DefaultGirdWidth, DefaultGirdHeight);
         }
 
         [TestMethod]
@@ -55,12 +56,12 @@ namespace RoverUnitTests
             }
             catch (Exception exception)
             {
-                Assert.AreEqual("Position can not be beyond bounderies (0 , 0) and (" + girdWidth + " , " + girdHeight + ")", exception.Message);
+                Assert.AreEqual("Position can not be beyond bounderies (0 , 0) and (" + DefaultGirdWidth + " , " + DefaultGirdHeight + ")", exception.Message);
             }
         }
 
         [TestMethod]
-        public void WhenStarting33S_AndMoveCommandMMM_AssertException()
+        public void WhenStarting33S_AndMoveCommandMMMMM_AssertException()
         {
             _rover.SetPosition(3, 3, RoverDirection.South);
 
@@ -73,7 +74,22 @@ namespace RoverUnitTests
             }
             catch (Exception exception)
             {
-                Assert.AreEqual("Position can not be beyond bounderies (0 , 0) and (" + girdWidth + " , " + girdHeight + ")", exception.Message);
+                Assert.AreEqual("Position can not be beyond bounderies (0 , 0) and (" + DefaultGirdWidth + " , " + DefaultGirdHeight + ")", exception.Message);
+            }
+        }
+
+        [TestMethod]
+        public void WhenLandingOutOfBounds_AssertException()
+        {
+            try
+            {
+                _rover.SetPosition(7, 7, RoverDirection.South);
+
+                Assert.Fail("An exception should have been thrown");
+            }
+            catch (Exception exception)
+            {
+                Assert.AreEqual("Position can not be beyond bounderies (0 , 0) and (" + DefaultGirdWidth + " , " + DefaultGirdHeight + ")", exception.Message);
             }
         }
     }

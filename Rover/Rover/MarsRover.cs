@@ -9,6 +9,7 @@ namespace MarsRoverExercise
         South = 'S',
         West = 'W'
     }
+
     public enum RoverCommand
     {
         Left = 'L',
@@ -23,21 +24,23 @@ namespace MarsRoverExercise
         private RoverDirection facing = RoverDirection.North;
         private readonly int gridWidth;
         private readonly int gridHeight;
+        
+        public string Name
+        { get; set; }
 
         public MarsRover(int width, int height)
         {
             gridWidth = width;
             gridHeight = height;
+            Name = "Rover";
         }
-
-        public string Name   // property
-        { get; set; }
 
         public void SetPosition(int x, int y, RoverDirection facing)
         {
             this.x = x;
             this.y = y;
             this.facing = facing;
+            CheckIfOutOfBounds();
         }
 
         public string CurrentPosition()
@@ -73,6 +76,11 @@ namespace MarsRoverExercise
                     break;
             }
 
+            CheckIfOutOfBounds();
+        }
+
+        private void CheckIfOutOfBounds()
+        { 
             if (this.x < 0 || this.x > gridWidth || this.y < 0 || this.y > gridHeight)
             {
                 throw new Exception($"Position can not be beyond bounderies (0 , 0) and ({gridWidth} , {gridHeight})");
